@@ -7,10 +7,10 @@ class SOAP implements iWSO
     $this->client = new SoapClient('http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL');
   }
 
-  public function getData($agr)
+  public function getData($arg)
   {
     $toTemplate = [];
-    if (!$agr) {
+    if (!$arg) {
       $result = $this->client->ListOfCountryNamesByCode()->ListOfCountryNamesByCodeResult->tCountryCodeAndName;
       forEach($result as $key => $item) {
         $toTemplate[$key] = [
@@ -20,7 +20,7 @@ class SOAP implements iWSO
       }
       return $toTemplate;
     } else {
-      $tempImg = $this->client->CountryFlag(array("sCountryISOCode" => $agr));
+      $tempImg = $this->client->CountryFlag(array("sCountryISOCode" => $arg));
       $result = $tempImg->CountryFlagResult;
       return $result;
     }

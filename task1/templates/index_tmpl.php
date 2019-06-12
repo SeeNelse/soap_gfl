@@ -7,7 +7,26 @@
   <title>Task 1</title>
 </head>
 <body>
-  <h3>Soap</h3>
-  <?= $resultSoap; ?>
+  <style>
+    .country {
+      display:flex;
+      flex-direction:row;
+    }
+    .country__list {
+      width: 50%;
+    }
+  </style>
+  <div class="country">
+    <div class="country__list">
+      <h2>cUrl</h2>
+      <?= $curlResult; ?>
+    </div>
+    <div class="country__list">
+      <h2>Soap</h2>
+      <?= $soapResult; ?>
+    </div>
+  </div>
+  
+  
 </body>
 </html>
