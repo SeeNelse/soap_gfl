@@ -1,0 +1,151 @@
+<definitions xmlns:tns="LOCALHOST.wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsd1="LOCALHOST.xsd" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" name="let you post/retrieve online message by SOAP protocol" targetNamespace="LOCALHOST.wsdl">
+ <!--  definition of datatypes  -->
+<types>
+<schema xmlns="http://www.w3.org/2000/10/XMLSchema" targetNamespace="LOCALHOST.xsd">
+<element name="id">
+<complexType>
+<all>
+<element name="value" type="int"/>
+</all>
+</complexType>
+</element>
+<element name="brand">
+<complexType>
+<all>
+<element name="value" type="string"/>
+</all>
+</complexType>
+</element>
+<element name="model">
+<complexType>
+<all>
+<element name="value" type="string"/>
+</all>
+</complexType>
+</element>
+<element name="year_production">
+<complexType>
+<all>
+<element name="value" type="int"/>
+</all>
+</complexType>
+</element>
+<element name="engine_capacity">
+<complexType>
+<all>
+<element name="value" type="int"/>
+</all>
+</complexType>
+</element>
+<element name="max_speed">
+<complexType>
+<all>
+<element name="value" type="int"/>
+</all>
+</complexType>
+</element>
+<element name="color">
+<complexType>
+<all>
+<element name="value" type="string"/>
+</all>
+</complexType>
+</element>
+<element name="price">
+<complexType>
+<all>
+<element name="value" type="int"/>
+</all>
+</complexType>
+</element>
+<element name="resultcode">
+<complexType>
+<all>
+<element name="value" type="int"/>
+</all>
+</complexType>
+</element>
+<element name="message">
+<complexType>
+<all>
+<element name="value" type="string"/>
+</all>
+</complexType>
+</element>
+</schema>
+</types>
+ <!--  response messages  -->
+<message name="returns_message">
+<part name="message" type="xsd:message"/>
+</message>
+ <!--  request messages  -->
+<message name="CarList">
+<part name="id" type="xsd:id"/>
+<part name="brand" type="xsd:brand"/>
+<part name="model" type="xsd:model"/>
+</message>
+<message name="CarDetails">
+<part name="brand" type="xsd:brand"/>
+<part name="model" type="xsd:model"/>
+<part name="year_production" type="xsd:year_production"/>
+<part name="engine_capacity" type="xsd:engine_capacity"/>
+<part name="color" type="xsd:color"/>
+<part name="max_speed" type="xsd:max_speed"/>
+<part name="price" type="xsd:price"/>
+</message>
+<message name="retrieve_message">
+<part name="id" type="xsd:id"/>
+</message>
+ <!--  server's services  -->
+<portType name="Cars-showroom">
+<operation name="CarList">
+<input message="tns:CarList"/>
+<output message="tns:returns_message"/>
+</operation>
+<operation name="CarDetails">
+<input message="tns:CarDetails"/>
+<output message="tns:returns_message"/>
+</operation>
+<operation name="retrieve_message">
+<input message="tns:retrieve_message"/>
+<output message="tns:returns_message"/>
+</operation>
+</portType>
+ <!--  server encoding  -->
+<binding name="Cars-showroom_webservices" type="tns:Cars-showroom">
+<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+<operation name="CarList">
+<soap:operation soapAction="urn:xmethods-delayed-quotes#CarList"/>
+<input>
+<soap:body use="encoded" namespace="urn:xmethods-delayed-quotes" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:xmethods-delayed-quotes" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+</output>
+</operation>
+<operation name="CarDetails">
+<soap:operation soapAction="urn:xmethods-delayed-quotes#CarDetails"/>
+<input>
+<soap:body use="encoded" namespace="urn:xmethods-delayed-quotes" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:xmethods-delayed-quotes" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+</output>
+</operation>
+<operation name="retrieve_message">
+<soap:operation soapAction="urn:xmethods-delayed-quotes#retrieve_message"/>
+<input>
+<soap:body use="encoded" namespace="urn:xmethods-delayed-quotes" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:xmethods-delayed-quotes" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+</output>
+</operation>
+</binding>
+ <!--  access to service provider  -->
+<service name="exemple">
+<port name="exemple_0" binding="Cars-showroom_webservices">
+<soap:address location="http://localhost/soap_gfl/task2/libs/SOAPServer.php"/>
+</port>
+</service>
+</definitions>
