@@ -2,30 +2,83 @@
 
 include 'config.php';
 include '../ShowRoom.php';
+include 'libs/SoapRequestResponse.php';
+
 
 $arr = [
-  'year_production' => "2018",
+  'year_production' => "2015",
   'model' => '',
   'engine_capacity' => '',
   'max_speed' => '',
-  'color' => "black",
+  'color' => "",
   'price' => '',
 ];
-
-$client = new SoapClient('http://192.168.0.15/~user8/sub/task2/server/?WSDL', array('cache_wsdl' => WSDL_CACHE_NONE));
+// $client = new SoapClient('http://localhost/soap_gfl/task2/server/?WSDL', array('cache_wsdl' => WSDL_CACHE_NONE));
 // echo '<pre>'; echo var_export($client->__getFunctions()); echo'</pre>';
 // echo '<pre>'; echo var_export($client->__getTypes()); echo'</pre>';
-// $result = $client->getCarsList();
-// $result = $client->getCarsDetails();
-// $result = $client->getCarById(['Id' => 1]); // обращение к айди
 // $result = $client->getCarsByParams($arr);
 // echo '<pre>'; echo var_export($result); echo'</pre>';
 
 
 
-$obj = new ShowRoom();
+// $obj = new ShowRoom();
 
-// echo '<pre>'; echo var_export($obj->getCarById(1)); echo'</pre>';
+// echo '<pre>'; echo var_export($obj->getCarsList()); echo'</pre>';
 // echo '<pre>'; echo var_export($obj->getCarsByParams($arr)); echo'</pre>';
+// 
 
-include 'templates/index_tmpl.html';
+// echo '<pre>'; echo var_export($_GET); echo'</pre>';
+// echo '<pre>'; echo var_export($_POST); echo'</pre>';
+
+$client = new SoapRequestResponse();
+$htmlError = '<h3>Not Found</h3>';
+$htmlContent = '';
+if (!$_GET) { // Главная
+  $htmlHead = 'Машины:';
+  $htmlContent = $client->getCarsList();
+} else if ($_GET['carId'] || $_GET['searchCarId']) { // Страницы поиска по айди и страница машины
+  if ($_GET['carId']) {
+    $getResponseId =  $_GET['carId'];
+  } else if ($_GET['searchCarId']) {
+    $getResponseId =  $_GET['searchCarId'];
+  }
+  $dataParse = $client->getCardById($getResponseId);
+  if ($dataParse) {
+    $htmlContent = $dataParse;
+    $htmlHead = $client->getCarName($getResponseId);
+  } else {
+    $htmlContent = $htmlError;
+  }
+} else if ($_GET['advancedSearch']) { // Расширенный поиск
+  $htmlHead = 'Расширенный поиск:';
+  $htmlContent = file_get_contents('templates/advancedForm.php');
+  if (is_null($_POST['year_production'])) {
+    $searchError = '';
+  } else if (!$_POST['year_production']) {
+    $searchError = 'border-danger';
+    $htmlContent = sprintf($htmlContent, $searchError);
+  } else if (is_numeric($_POST['year_production'])) {
+    $searchArray = [
+      'year_production' => $_POST['year_production'],
+      'model' => $_POST['model'],
+      'engine_capacity' => $_POST['engine_capacity'],
+      'max_speed' => $_POST['max_speed'],
+      'color' => $_POST['color'],
+      'price' => $_POST['price'],
+    ];
+    $advancedSearchResponse = $client->getCarsByParams($searchArray);
+    if ($advancedSearchResponse) {
+      $htmlHead = 'Результаты:';
+      $htmlContent = $advancedSearchResponse;
+    } else {
+      $htmlContent = $htmlError;
+    }
+  }
+}
+
+
+
+
+
+
+include 'templates/index_tmpl.php';

@@ -25,17 +25,17 @@ class ShowRoom
   {
     if ($this->dbConnect) {
       $querySend = $this->dbConnect->prepare("SELECT 
-                                          ".MYSQL_TABLE_CARS.".id,
-                                          ".MYSQL_TABLE_BRAND.".brand,
-                                          ".MYSQL_TABLE_CARS.".model,
-                                          ".MYSQL_TABLE_CARS.".year_production,
-                                          ".MYSQL_TABLE_CARS.".engine_capacity,
-                                          ".MYSQL_TABLE_CARS.".max_speed,
-                                          ".MYSQL_TABLE_CARS.".color,
-                                          ".MYSQL_TABLE_CARS.".price
-                                          FROM ".MYSQL_TABLE_CARS." 
-                                          LEFT JOIN ".MYSQL_TABLE_BRAND." 
-                                          ON ".MYSQL_TABLE_CARS.".brand_id = ".MYSQL_TABLE_BRAND.".id");
+                                            ".MYSQL_TABLE_CARS.".id,
+                                            ".MYSQL_TABLE_BRAND.".brand,
+                                            ".MYSQL_TABLE_CARS.".model,
+                                            ".MYSQL_TABLE_CARS.".year_production,
+                                            ".MYSQL_TABLE_CARS.".engine_capacity,
+                                            ".MYSQL_TABLE_CARS.".max_speed,
+                                            ".MYSQL_TABLE_CARS.".color,
+                                            ".MYSQL_TABLE_CARS.".price
+                                            FROM ".MYSQL_TABLE_CARS." 
+                                            LEFT JOIN ".MYSQL_TABLE_BRAND." 
+                                            ON ".MYSQL_TABLE_CARS.".brand_id = ".MYSQL_TABLE_BRAND.".id");
       return $this->queryExecute($querySend);
     } else {
       return false;
@@ -86,7 +86,7 @@ class ShowRoom
       $queryParams = substr(trim($queryParams), 0, -4);
       $querySend = $this->dbConnect->prepare("SELECT * FROM ".MYSQL_TABLE_CARS." WHERE ".$queryParams);
       $result = $this->queryExecute($querySend);
-      return $result[0];
+      return $result;
     } else {
       return false;
     }
