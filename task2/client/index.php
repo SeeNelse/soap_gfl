@@ -21,7 +21,7 @@ $arr = [
 
 
 
-// $obj = new ShowRoom();
+$obj = new ShowRoom();
 
 // echo '<pre>'; echo var_export($obj->getCarsList()); echo'</pre>';
 // echo '<pre>'; echo var_export($obj->getCarsByParams($arr)); echo'</pre>';
@@ -73,6 +73,25 @@ if (!$_GET) { // Главная
     } else {
       $htmlContent = $htmlError;
     }
+  }
+} else if ($_GET['order']) {
+  $htmlHead = 'Заказать машину:';
+  $htmlContent = file_get_contents('templates/orderForm.php');
+  if (is_null($_POST['car_id']) && 
+      is_null($_POST['name']) && 
+      is_null($_POST['surname']) && 
+      is_null($_POST['payment_type'])) 
+  {
+    $searchError = '';
+  } else if (is_numeric($_POST['car_id']) && is_string($_POST['name']) && is_string($_POST['surname']) && $_POST['payment']) {
+    $arr = [
+      'car_id' => $_POST['car_id'],
+      'name' => $_POST['name'],
+      'surname' => $_POST['surname'],
+      'payment' => $_POST['payment']
+    ];
+    $obj->setOrderData($arr);
+    // $client->setNewOrder($arr);
   }
 }
 

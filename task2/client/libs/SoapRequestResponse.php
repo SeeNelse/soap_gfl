@@ -9,7 +9,7 @@ class SoapRequestResponse
   public function __construct()
   {
     try {
-      $this->client = new SoapClient('http://localhost/soap_gfl/task2/server/?WSDL', array('cache_wsdl' => WSDL_CACHE_NONE));
+      $this->client = new SoapClient('http://192.168.0.15/~user8/sub/task2/server/?wsdl', array('cache_wsdl' => WSDL_CACHE_NONE));
     } catch (Exception $e) {
       $this->error = $e;
       return false;
@@ -62,10 +62,9 @@ class SoapRequestResponse
     }
   }
 
-  // public function setNewOrder(var) {
-  
-  //   return;
-  // }
+  public function setNewOrder($arr) {
+    // $this->client->setOrderData($arr);
+  }
 
   private function renderAdvancedSearch($obj) {
     $listArray = [];

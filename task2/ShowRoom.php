@@ -92,6 +92,17 @@ class ShowRoom
     }
   }
 
+  public function setOrderData($arr) {
+    var_dump($arr);
+    if ($this->dbConnect) {
+      $querySend = $this->dbConnect->prepare("INSERT INTO ".MYSQL_TABLE_ORDER." (car_id, name, surname, payment) 
+                                              VALUES ('".$arr['car_id']."', '".$arr['name']."', '".$arr['surname']."', '".$arr['payment']."');");
+      return $this->queryExecute($querySend);
+    } else {
+      return false;
+    }
+  }
+
   private function queryExecute($query) 
   {
     $query->execute();

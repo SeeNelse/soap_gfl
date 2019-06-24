@@ -11,14 +11,14 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand" href="http://localhost/soap_gfl/task2/client/">Navbar</a>
+      <a class="navbar-brand" href="http://192.168.0.15/~user8/sub/task2/client/">Navbar</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="/">Главная</a>
-          <a class="nav-item nav-link" href="#">Заказ машины</a>
+          <a class="nav-item nav-link active" href="http://192.168.0.15/~user8/sub/task2/client/">Главная</a>
+          <a class="nav-item nav-link" href="?order=true">Заказ машины</a>
         </div>
         <form class="form-inline" action="" method="get">
           <input class="form-control mr-sm-2" type="search" name="searchCarId" placeholder="Поиск по ID" aria-label="Search">

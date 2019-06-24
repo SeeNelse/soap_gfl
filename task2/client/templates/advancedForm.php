@@ -6,7 +6,7 @@
     </div>
     <div class="form-group">
       <label for="exampleFormControlInput1">Год выпуска<span style="color: red;">*</span>:</label>
-      <input type="number" class="form-control %s" name='year_production' placeholder="Год выпуска" >
+      <input type="number" class="form-control %s" name='year_production' placeholder="Год выпуска" require>
     </div>
     <div class="form-group">
       <label for="exampleFormControlInput1">Объём двигателя:</label>
