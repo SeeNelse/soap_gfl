@@ -90,7 +90,7 @@ if (!$_GET) { // Главная
       'surname' => $_POST['surname'],
       'payment' => $_POST['payment']
     ];
-    $obj->setOrderData($arr);
+    $obj->setNewOrder($arr);
     // $client->setNewOrder($arr);
   }
 }

@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <definitions name="CarsShowRoom"
-             targetNamespace="http://192.168.0.15/~user8/sub/task2/server/"
+             targetNamespace="http://localhost/soap_gfl/task2/server/"
              xmlns="http://schemas.xmlsoap.org/wsdl/"
              xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-             xmlns:tns="http://192.168.0.15/~user8/sub/task2/server/"
+             xmlns:tns="http://localhost/soap_gfl/task2/server/"
              xmlns:xs="http://www.w3.org/2001/XMLSchema"
              xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding"
              xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
 
     <types>
-        <xs:schema targetNamespace="http://192.168.0.15/~user8/sub/task2/server/">
+        <xs:schema targetNamespace="http://localhost/soap_gfl/task2/server/">
         
             <xs:complexType name="CarDetails">
                 <xs:sequence>
@@ -65,6 +65,21 @@
                 </xs:complexType>
             </xs:element>
 
+            <xs:element name="setNewOrderParamsRequestType">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="CarId" type="xs:integer"  minOccurs="1" maxOccurs="1" />
+                        <xs:element name="FirstName" type="xs:string"  minOccurs="1" maxOccurs="1" />
+                        <xs:element name="LastName" type="xs:string"  minOccurs="1" maxOccurs="1" />
+                        <xs:element name="PaymentType" type="xs:integer"  minOccurs="1" maxOccurs="1" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="getNewOrderResponse">
+                <complexType/>
+            </xs:element>
+
         </xs:schema>
     </types>
 
@@ -97,6 +112,13 @@
         <part name="parameters" type="tns:CarsList"/>
     </message>
 
+    <message name="newOrderParamsRequest">
+        <part name="parameters" element="tns:setNewOrderParamsRequestType"/>
+    </message>
+    <message name="newOrderParamsResponse">
+        <part name="parameters" type="tns:getNewOrderResponse"/>
+    </message>
+
 
 
     <portType name="CarsShowRoomType">
@@ -119,6 +141,11 @@
         <operation name="getCarsByParams">
             <input message="tns:getCarsByParamsRequest"/>
             <output message="tns:getCarsByParamsResponse"/>
+        </operation>
+
+        <operation name="setNewOrder">
+                <input message="tns:newOrderParamsRequest"/>
+                <output message="tns:newOrderParamsResponse"/>
         </operation>
 
     </portType>
@@ -166,11 +193,21 @@
                 </output>
         </operation>
 
+        <operation name="setNewOrder">
+            <soap:operation soapAction="" style="document"/>
+                <input>
+                    <soap:body use="literal"/>
+                </input>
+                <output>
+                    <soap:body use="literal"/>
+                </output>
+        </operation>
+
     </binding>
 
     <service name="CarsShowRoom">
         <port name="CarsShowRoomSoap" binding="CarsShowRoomBinding">
-            <soap:address location="http://192.168.0.15/~user8/sub/task2/server/index.php"/>
+            <soap:address location="http://localhost/soap_gfl/task2/server/index.php"/>
         </port>
     </service>
 </definitions>

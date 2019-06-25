@@ -92,11 +92,14 @@ class ShowRoom
     }
   }
 
-  public function setOrderData($arr) {
-    var_dump($arr);
+  public function setNewOrder($arr) {
+    $carId = $arr->CarId;
+    $firstName = $arr->FirstName;
+    $lastName = $arr->LastName;
+    $paymentType = $arr->PaymentType;
     if ($this->dbConnect) {
       $querySend = $this->dbConnect->prepare("INSERT INTO ".MYSQL_TABLE_ORDER." (car_id, name, surname, payment) 
-                                              VALUES ('".$arr['car_id']."', '".$arr['name']."', '".$arr['surname']."', '".$arr['payment']."');");
+                                              VALUES ('".$carId."', '".$firstName."', '".$lastName."', '".$paymentType."');");
       return $this->queryExecute($querySend);
     } else {
       return false;
