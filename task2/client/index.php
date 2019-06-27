@@ -5,30 +5,6 @@ include '../ShowRoom.php';
 include 'libs/SoapRequestResponse.php';
 
 
-$arr = [
-  'year_production' => "2015",
-  'model' => '',
-  'engine_capacity' => '',
-  'max_speed' => '',
-  'color' => "",
-  'price' => '',
-];
-// $client = new SoapClient('http://localhost/soap_gfl/task2/server/?WSDL', array('cache_wsdl' => WSDL_CACHE_NONE));
-// echo '<pre>'; echo var_export($client->__getFunctions()); echo'</pre>';
-// echo '<pre>'; echo var_export($client->__getTypes()); echo'</pre>';
-// $result = $client->getCarsByParams($arr);
-// echo '<pre>'; echo var_export($result); echo'</pre>';
-
-
-
-// $obj = new ShowRoom();
-
-// echo '<pre>'; echo var_export($obj->getCarsList()); echo'</pre>';
-// echo '<pre>'; echo var_export($obj->getCarsByParams($arr)); echo'</pre>';
-// 
-
-// echo '<pre>'; echo var_export($_GET); echo'</pre>';
-// echo '<pre>'; echo var_export($_POST); echo'</pre>';
 
 $client = new SoapRequestResponse();
 $htmlError = '<h3>Not Found</h3>';
@@ -74,7 +50,7 @@ if (!$_GET) { // Главная
       $htmlContent = $htmlError;
     }
   }
-} else if ($_GET['order']) {
+} else if ($_GET['order']) { // заявка на машину
   $htmlHead = 'Заказать машину:';
   $htmlContent = file_get_contents('templates/orderForm.php');
   if (is_null($_POST['car_id']) && 
@@ -105,9 +81,6 @@ if (!$_GET) { // Главная
     var_dump('error');
   }
 }
-
-
-
 
 
 
