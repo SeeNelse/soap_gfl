@@ -21,7 +21,7 @@ $arr = [
 
 
 
-$obj = new ShowRoom();
+// $obj = new ShowRoom();
 
 // echo '<pre>'; echo var_export($obj->getCarsList()); echo'</pre>';
 // echo '<pre>'; echo var_export($obj->getCarsByParams($arr)); echo'</pre>';
@@ -83,15 +83,26 @@ if (!$_GET) { // Главная
       is_null($_POST['payment_type'])) 
   {
     $searchError = '';
-  } else if (is_numeric($_POST['car_id']) && is_string($_POST['name']) && is_string($_POST['surname']) && $_POST['payment']) {
+  } else if (is_numeric($_POST['car_id']) && 
+              is_string($_POST['first_name']) && 
+              is_string($_POST['last_name']) && 
+              is_numeric($_POST['payment_type'])) 
+  {
     $arr = [
-      'car_id' => $_POST['car_id'],
-      'name' => $_POST['name'],
-      'surname' => $_POST['surname'],
-      'payment' => $_POST['payment']
+      'CarId' => trim($_POST['car_id']),
+      'FirstName' => trim($_POST['first_name']),
+      'LastName' => trim($_POST['last_name']),
+      'PaymentType' => trim($_POST['payment_type'])
     ];
-    $obj->setNewOrder($arr);
-    // $client->setNewOrder($arr);
+   if ($client->setNewOrder($arr)) {
+    $idError = "<div class='alert alert-success' role='alert'>Ваша заявка отправлена!</div>";
+    $htmlContent = sprintf($htmlContent, $idError);
+   } else {
+    $idError = "<div class='alert alert-danger' role='alert'>Машина с таким id не найдена</div>";
+    $htmlContent = sprintf($htmlContent, $idError);
+   }
+  } else {
+    var_dump('error');
   }
 }
 

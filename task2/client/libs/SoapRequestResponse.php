@@ -64,7 +64,15 @@ class SoapRequestResponse
   }
 
   public function setNewOrder($arr) {
-    // $this->client->setOrderData($arr);
+    if ($arr) {
+      if ($this->client->setNewOrder($arr) === '') {
+        return true;
+      } else if ($this->client->setNewOrder($arr) === false) {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
   private function renderAdvancedSearch($obj) {

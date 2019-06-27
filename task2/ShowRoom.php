@@ -98,9 +98,14 @@ class ShowRoom
     $lastName = $arr->LastName;
     $paymentType = $arr->PaymentType;
     if ($this->dbConnect) {
-      $querySend = $this->dbConnect->prepare("INSERT INTO ".MYSQL_TABLE_ORDER." (car_id, name, surname, payment) 
+      $idCheck = $this->dbConnect->prepare("SELECT * FROM ".MYSQL_TABLE_CARS." WHERE id = $carId");
+      if ($this->queryExecute($idCheck)) {
+        $querySend = $this->dbConnect->prepare("INSERT INTO ".MYSQL_TABLE_ORDER." (car_id, name, surname, payment) 
                                               VALUES ('".$carId."', '".$firstName."', '".$lastName."', '".$paymentType."');");
-      return $this->queryExecute($querySend);
+        return $this->queryExecute($querySend);
+      } else {
+        return false;
+      }
     } else {
       return false;
     }

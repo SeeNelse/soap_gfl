@@ -6,20 +6,21 @@
     </div>
     <div class="form-group">
       <label for="exampleFormControlInput1">Имя<span style="color: red;">*</span>:</label>
-      <input type="text" class="form-control" name='name' placeholder="Имя" require>
+      <input type="text" class="form-control" name='first_name' placeholder="Имя" require>
     </div>
     <div class="form-group">
       <label for="exampleFormControlInput1">Фамилия<span style="color: red;">*</span>:</label>
-      <input type="text" class="form-control" name='surname' placeholder="Фамилия" require>
+      <input type="text" class="form-control" name='last_name' placeholder="Фамилия" require>
     </div>
     <div class="form-group">
       <label for="exampleFormControlInput1">Способ оплаты<span style="color: red;">*</span>:</label>
-      <select class="form-control" name='payment'>
+      <select class="form-control" name='payment_type'>
         <option value="none" disabled selected>Выберите способ оплаты</option>
-        <option value="credit_card">Кредитная карта</option>
-        <option value="cash">Наличные</option>
+        <option value="1">Наличные</option>
+        <option value="2">Кредитная карта</option>
       </select>
     </div>
+    %s
     <div class="form-group">
       <button type="submit" class="btn btn-primary">Заказать</button>
     </div>
