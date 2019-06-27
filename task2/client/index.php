@@ -1,7 +1,6 @@
 <?php
 
 include 'config.php';
-include '../ShowRoom.php';
 include 'libs/SoapRequestResponse.php';
 
 
@@ -52,7 +51,10 @@ if (!$_GET) { // Главная
   }
 } else if ($_GET['order']) { // заявка на машину
   $htmlHead = 'Заказать машину:';
-  $htmlContent = file_get_contents('templates/orderForm.php');
+  $orderTemplate = file_get_contents('templates/orderForm.php');
+  $idError = '';
+  $htmlContent = sprintf($orderTemplate, $idError);
+  // $htmlContent = file_get_contents('templates/orderForm.php');
   if (is_null($_POST['car_id']) && 
       is_null($_POST['name']) && 
       is_null($_POST['surname']) && 
@@ -72,13 +74,14 @@ if (!$_GET) { // Главная
     ];
    if ($client->setNewOrder($arr)) {
     $idError = "<div class='alert alert-success' role='alert'>Ваша заявка отправлена!</div>";
-    $htmlContent = sprintf($htmlContent, $idError);
+    $htmlContent = sprintf($orderTemplate, $idError);
    } else {
     $idError = "<div class='alert alert-danger' role='alert'>Машина с таким id не найдена</div>";
-    $htmlContent = sprintf($htmlContent, $idError);
+    $htmlContent = sprintf($orderTemplate, $idError);
    }
   } else {
-    var_dump('error');
+    $idError = "<div class='alert alert-danger' role='alert'>Заполните все поля</div>";
+    $htmlContent = sprintf($orderTemplate, $idError);
   }
 }
 
